@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Introduction to Scala &amp; Play</title>
+    <link rel="stylesheet" type="text/css" href="build/build.css">
+    <base target="_blank">
+  </head>
+  <body>
+    <article>
+      <section data-bespoke-state="intro">
+        <div class="container">
+          <div class="col scala logo"></div>
+          <div class="col play logo"></div>
+        </div>
+      </section>
+      <section data-bespoke-state="scala" class="logo logo--scala"></section>
+      <section data-bespoke-state="scala">
+        <h2>Why</h2>
+        <h1 class="scala">Scala</h1>
+        <h2>is Awesome?</h2>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Why Scala?</h2>
+        <ul class="bullet">
+          <li>Fast</li>
+          <li>Concise</li>
+          <li>Type Safe</li>
+          <li>Type Inference</li>
+          <li>Functional</li>
+          <li>Pure Object Oriented</li>
+        </ul>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Why Scala?</h2>
+        <ul class="bullet">
+          <li>Extensible</li>
+          <li>Built on JVM</li>
+          <li>Pattern Matching</li>
+          <li>Lazy Evaluation</li>
+          <li>Stream</li>
+          <li>Easy Parallelism</li>
+        </ul>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>How Fast?</h2>
+        <!-- http://benchmarksgame.alioth.debian.org/u32/which-programs-are-fastest.php-->
+        <h3>C &gt; Java &gt; Scala &gt;&gt; PHP, Ruby, Python</h3>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>How Concise?</h2>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Java</h2>
+        <pre class="language-java"><code>public class Person {
+  private final String firstName;
+  private final String lastName;
+  public Person(String firstName, String lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+  public String getFirstName() {
+    return firstName;
+  }
+  public String getLastName() {
+    return lastName;
+  }
+}
+</code></pre>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2 class="scala">Scala</h2>
+        <pre class="language-scala"><code>case class Person(firstName: String, lastName: String)
+</code></pre>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Java</h2><a href="https://gist.github.com/torifat/353d45b1058b93a9ec85">https://gist.github.com/torifat/353d45b1058b93a9ec85</a>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Functional Combinators</h2>
+        <ul class="bullet">
+          <li>map</li>
+          <li>foreach</li>
+          <li>filter</li>
+          <li>zip</li>
+          <li>partition</li>
+        </ul>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Functional Combinators</h2>
+        <ul class="bullet">
+          <li>find</li>
+          <li>drop and dropWhile</li>
+          <li>foldRight and foldLeft</li>
+          <li>flatten</li>
+          <li>flatMap</li>
+        </ul>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Functional Combinators</h2>
+        <pre class="language-scala"><code>val list = (1 to 10).toList
+//> list  : List[Int] = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+list.filter(5 <)
+//> res0: List[Int] = List(6, 7, 8, 9, 10)
+
+list.fold(0)((a, n) => a + n)
+list.fold(0)(_ + _)
+//> res1: Int = 55
+
+list.map(x => x * x)
+//> res2: List[Int] = List(1, 4, 9, 16, 25, 36, 49, 64, 81, 100)
+</code></pre>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Curring</h2>
+        <pre class="language-scala"><code>def power(x: Double)(y: Int) = Math.pow(x, y)
+//> power: (x: Double)(y: Int)Double
+
+list.map(power(2))
+//> res3: List[Double] = List(2.0, 4.0, 8.0, 16.0, 32.0, 64.0,
+//| 128.0, 256.0, 512.0, 1024.0)
+
+def square = power(2) _
+//> square: => Int => Double
+
+list.map(square)
+</code></pre>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Tail Recursion</h2>
+        <pre class="language-scala"><code>def factorial(n: Int): Int = {
+  if (n == 0)
+    1
+  else
+    n * factorial(n - 1)
+}
+</code></pre>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Tail Recursion</h2>
+        <pre class="language-scala"><code>def factorial(n: Int): Int = if (n == 0) 1 else n * factorial(n - 1)
+
+factorial(3)
+// if (3 == 0) 1 else 3 * factorial(3 - 1)
+// 3 * factorial(2)
+// 3 * (2 * factorial(1))
+// 3 * (2 * (1 * factorial(0)))
+// 3 * (2 * (1 * 1))
+// 6
+</code></pre>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Tail Recursion</h2>
+        <pre class="language-scala"><code>@tailrec
+def factorial(i: Int): Int = {
+  def fact(i: Int, accumulator: Int): Int = {
+    if (i <= 1)
+      accumulator
+    else
+      fact(i - 1, i * accumulator)
+  }
+  fact(i, 1)
+}
+</code></pre>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Trait</h2>
+      </section>
+      <section data-bespoke-state="scala" class="logo logo--trait-01"></section>
+      <section data-bespoke-state="scala" class="logo logo--trait-02"></section>
+      <section data-bespoke-state="scala" class="logo logo--trait-03"></section>
+      <section data-bespoke-state="scala">
+        <h2>Trait</h2>
+        <pre class="language-scala"><code>class Animal {}
+trait Walking { def walk = println("walking...") }
+trait Swimming { def swim = println("swimming...") }
+trait Flying { def fly = println("flying...") }
+
+class Duck extends Animal with Walking with Swimming {}
+d.walk
+//> walking...
+d.swim  
+//> swimming...
+</code></pre>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Trait</h2>
+        <pre class="language-scala"><code>val superDuck = new Duck with Flying
+superDuck.walk
+//> walking...
+superDuck.swim  
+//> swimming...
+superDuck.fly
+//> flying...
+</code></pre>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Extensible</h2>
+        <pre class="language-scala"><code>implicit class IntWithTimes(i: Int) {
+  def times(f: => Unit) = (1 to i) foreach (x => f)
+}
+
+5 times println("Welcome to the Scala worksheet")
+
+// 5 days ago
+// 5 days before
+// 10 years back
+</code></pre>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Pattern Matching</h2>
+        <pre class="language-scala"><code>abstract class Expr
+case class Number(n: Int) extends Expr
+case class Sum(e1: Expr, e2: Expr) extends Expr
+
+def eval(e: Expr): Int = e match {
+  case Number(n) => n
+  case Sum(l, r) => eval(l) + eval(r)
+}
+
+eval(Sum(Sum(Number(1), Number(2)), Number(3)))
+//> res3: Int = 6
+</code></pre>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Lazy Evaluation</h2>
+        <pre class="language-scala"><code>def expr = {
+  val x = { print("x"); 1 }
+  lazy val y = { print("y"); 2 }
+  def z = { print("z"); 3 }
+  z+y+x+z+y+x
+}
+expr
+</code></pre>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Stream</h2>
+        <pre class="language-scala"><code>def from(n: Int): Stream[Int] = n #:: from(n+1)
+</code></pre>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Stream</h2>
+        <pre class="language-scala"><code>def from(n: Int): Stream[Int] = n #:: from(n+1)
+
+def sieve(s: Stream[Int]): Stream[Int] =
+  s.head #:: sieve(s.tail filter (_ % s.head != 0))
+  
+val primes = sieve(from(2))
+
+(primes take 100).toList
+// Will return first 100 primes
+</code></pre>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Easy Parallelism</h2>
+        <ul class="bullet">
+          <li>Parallel Collections</li>
+          <li>Thread-based Concurrency <em>(derived from Java)</em></li>
+          <li>Actor-based Concurrency <em>(inspired by Erlang)</em></li>
+          <li>Software Transactional Memory <em>(basis of concurrency in Clojure)</em></li>
+        </ul>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Parallel Collections</h2>
+        <pre class="language-scala"><code>val list = (1 to 1000000).toList.par
+
+// Filter even numbers
+list.filter(_ % 2 == 0)
+
+// Filter odd numbers
+list.filter(_ % 2 == 1)
+</code></pre>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Actor-based Concurrency</h2>
+        <pre class="language-scala"><code>def heavyTask = {
+  Thread.sleep(1000L)
+  "Doing the HEAVY TASK"
+}
+
+val start = System.nanoTime
+for (i <- 1 to 10) println(heavyTask)
+val end = System.nanoTime
+
+println("Time: " + (end - start)/1000000000.0)
+//> Time: 10.033465
+</code></pre>
+      </section>
+      <section data-bespoke-state="scala">
+        <h2>Actor-based Concurrency</h2>
+        <pre class="language-scala"><code>import scala.actors._
+import Actor._
+
+val caller = self
+val start = System.nanoTime
+for (i <- 1 to 10) actor { caller ! heavyTask }
+for (i <- 1 to 10) receive { case msg => println(msg) }
+val end = System.nanoTime
+println("Time: " + (end - start)/1000000000.0)
+//> Time: 2.077815
+</code></pre>
+      </section>
+      <section data-bespoke-state="scala">
+        <h3 class="scala">We have just scratched the surface</h3>
+      </section>
+      <section data-bespoke-state="scala">
+        <blockquote>If I were to pick a language today other than Java, it would be Scala - <span>James Gosling</span></blockquote>
+      </section>
+      <section data-bespoke-state="play" class="logo logo--play"></section>
+      <section data-bespoke-state="play">
+        <h2>Why</h2>
+        <h1 class="play">Play</h1>
+        <h2>is Awesome?</h2>
+      </section>
+      <section data-bespoke-state="play">
+        <h2>Why?</h2>
+        <ul class="bullet">
+          <li>RAD</li>
+          <li>Java &amp; Scala</li>
+          <li>Reactive</li>
+          <li>Scalable</li>
+          <li>Flexible</li>
+        </ul>
+      </section>
+      <section data-bespoke-state="play">
+        <h2>New Project</h2>
+        <pre class="language-bash"><code>$ activator new my-project</code></pre>
+      </section>
+      <section data-bespoke-state="play">
+        <h2>New Project</h2>
+        <pre class="language-bash"><code>Choose from these featured templates or enter a template name:
+  1) minimal-akka-java-seed
+  2) minimal-akka-scala-seed
+  3) minimal-java
+  4) minimal-scala
+  5) play-java
+  6) play-scala
+(hit tab to see a list of all templates)
+>
+</code></pre>
+      </section>
+      <section data-bespoke-state="play">
+        <h1 class="demo play">DEMO</h1>
+      </section>
+      <section data-bespoke-state="play">
+        <h1 class="thanks">Thank You</h1>
+        <h3><a href="https://twitter.com/rifat" class="twitter">@rifat </br></a><a href="https://fb.me/rifat" class="fb">fb.me/rifat</a></h3><img src="images/profile.jpg" class="avatar avatar--small">
+      </section>
+    </article>
+  </body>
+  <script src="build/build.js"></script>
+</html>
