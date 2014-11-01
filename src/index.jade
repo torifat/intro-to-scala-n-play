@@ -83,20 +83,20 @@ html
       section(data-bespoke-state='scala')
         h2 Functional Combinators
         ul.bullet
-          li find
-          li drop and dropWhile
-          li foldRight and foldLeft
-          li flatten
-          li flatMap
-
-      section(data-bespoke-state='scala')
-        h2 Functional Combinators
-        ul.bullet
           li map
           li foreach
           li filter
           li zip
           li partition
+
+      section(data-bespoke-state='scala')
+        h2 Functional Combinators
+        ul.bullet
+          li find
+          li drop and dropWhile
+          li foldRight and foldLeft
+          li flatten
+          li flatMap
 
       section(data-bespoke-state='scala')
         h2 Functional Combinators
@@ -171,9 +171,41 @@ html
               fact(i, 1)
             }
 
+      section(data-bespoke-state='scala')
+        h2 Trait
+
+      section.logo.logo--trait-01(data-bespoke-state='scala')
+
+      section.logo.logo--trait-02(data-bespoke-state='scala')
+
+      section.logo.logo--trait-03(data-bespoke-state='scala')
 
       section(data-bespoke-state='scala')
         h2 Trait
+        pre.language-scala
+          code.
+            class Animal {}
+            trait Walking { def walk = println("walking...") }
+            trait Swimming { def swim = println("swimming...") }
+            trait Flying { def fly = println("flying...") }
+
+            class Duck extends Animal with Walking with Swimming {}
+            d.walk
+            //> walking...
+            d.swim  
+            //> swimming...
+
+      section(data-bespoke-state='scala')
+        h2 Trait
+        pre.language-scala
+          code.
+            val superDuck = new Duck with Flying
+            superDuck.walk
+            //> walking...
+            superDuck.swim  
+            //> swimming...
+            superDuck.fly
+            //> flying...
 
       section(data-bespoke-state='scala')
         h2 Extensible
@@ -248,7 +280,6 @@ html
           li Software Transactional Memory 
             em (basis of concurrency in Clojure)
 
-
       section(data-bespoke-state='scala')
         h2 Parallel Collections
         pre.language-scala
@@ -260,5 +291,59 @@ html
 
             // Filter odd numbers
             list.filter(_ % 2 == 1)
+
+      section(data-bespoke-state='scala')
+        h2 Actor-based Concurrency
+        pre.language-scala
+          code.
+            def heavyTask = {
+              Thread.sleep(1000L)
+              "Doing the HEAVY TASK"
+            }
+
+            val start = System.nanoTime
+            for (i <- 1 to 10) println(heavyTask)
+            val end = System.nanoTime
+            
+            println("Time: " + (end - start)/1000000000.0)
+            //> Time: 10.033465
+
+      section(data-bespoke-state='scala')
+        h2 Actor-based Concurrency
+        pre.language-scala
+          code.
+            import scala.actors._
+            import Actor._
+
+            val caller = self
+            val start = System.nanoTime
+            for (i <- 1 to 10) actor { caller ! heavyTask }
+            for (i <- 1 to 10) receive { case msg => println(msg) }
+            val end = System.nanoTime
+            println("Time: " + (end - start)/1000000000.0)
+            //> Time: 2.077815
+
+      section(data-bespoke-state='scala')
+        h3.scala We have just scratched the surface
+
+      section(data-bespoke-state='scala')
+        blockquote If I were to pick a language today other than Java, it would be Scala - 
+          span James Gosling
+
+      section.logo.logo--play(data-bespoke-state='play')
+
+      section(data-bespoke-state='play')
+        h2 Why
+        h1.play Play
+        h2 is Awesome?
+
+      section(data-bespoke-state='play')
+        h2 Why?
+        ul.bullet
+          li RAD
+          li Java &amp; Scala
+          li Reactive
+          li Scalable
+          li Flexible
 
   script(src='build/build.js')

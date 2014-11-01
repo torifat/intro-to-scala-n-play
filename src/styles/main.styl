@@ -157,6 +157,8 @@ article
   background: white
   .scala &
     background scala
+  .play &
+    background play
 
 .emphatic
   background: #222
@@ -215,6 +217,8 @@ h1
   margin-bottom: 16px
   &.scala
     color: scala
+  &.play
+    color: play
 
 h2
   font-weight: 300
@@ -223,6 +227,8 @@ h2
   margin-bottom: 8px
   &.scala
     color: scala
+  &.play
+    color: play
 
 h3
   font-size: 24px
@@ -230,6 +236,8 @@ h3
   margin-bottom: 24px
   &.scala
     color: scala
+  &.play
+    color: play
 
 hr
   visibility: hidden
@@ -259,6 +267,18 @@ small
   &--scala
     background-size: 25%
     background-image: url(../images/smooth-spiral.png)
+  &--play
+    background-size: 25%
+    background-image: url(../images/play_icon_full_color.png)
+  &--trait-01
+    background-size: 100%
+    background-image: url(../images/trait-01.png)
+  &--trait-02
+    background-size: 100%
+    background-image: url(../images/trait-02.png)
+  &--trait-03
+    background-size: 100%
+    background-image: url(../images/trait-03.png)
 
 // Gist
 .gist
@@ -269,3 +289,19 @@ small
 
 em
   font-size: 70%
+
+blockquote
+  background #f9f9f9
+  border-left 10px solid #ccc
+  margin 1.5em 10px
+  padding 0.5em 10px
+  quotes "\201C""\201D""\2018""\2019"
+  &:before
+    color #ccc
+    content open-quote
+    font-size 4em
+    line-height 0.1em
+    margin-right 0.25em
+    vertical-align -0.4em
+  span
+    font-weight bold
