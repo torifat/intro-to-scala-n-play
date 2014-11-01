@@ -293,6 +293,8 @@ println("Time: " + (end - start)/1000000000.0)
         <pre class="language-scala"><code>import scala.actors._
 import Actor._
 
+// Copy heavyTask def from previous slide here
+
 val caller = self
 val start = System.nanoTime
 for (i <- 1 to 10) actor { caller ! heavyTask }
