@@ -346,4 +346,33 @@ html
           li Scalable
           li Flexible
 
+      section(data-bespoke-state='play')
+        h2 New Project
+        pre.language-bash
+          code $ activator new my-project
+
+      section(data-bespoke-state='play')
+        h2 New Project
+        pre.language-bash
+          code.
+            Choose from these featured templates or enter a template name:
+              1) minimal-akka-java-seed
+              2) minimal-akka-scala-seed
+              3) minimal-java
+              4) minimal-scala
+              5) play-java
+              6) play-scala
+            (hit tab to see a list of all templates)
+            >
+
+      section(data-bespoke-state='play')
+        h1.demo.play DEMO
+
+      section(data-bespoke-state='play')
+        h1.thanks Thank You
+        h3
+          a.twitter(href='https://twitter.com/rifat') @rifat </br>
+          a.fb(href='https://fb.me/rifat') fb.me/rifat
+        img.avatar.avatar--small(src='images/profile.jpg')
+
   script(src='build/build.js')

@@ -35,3 +35,12 @@ require('prism/components/prism-clike');
 require('prism/components/prism-javascript');
 require('prism/components/prism-java');
 require('prism/components/prism-scala');
+require('prism/components/prism-bash');
+
+Prism.languages.insertBefore('bash', 'comment', {
+  'important': /\b(activator)\b/g
+});
+
+Prism.languages.insertBefore('bash', 'keyword', {
+  'property': /\b(new)\b/g
+});
