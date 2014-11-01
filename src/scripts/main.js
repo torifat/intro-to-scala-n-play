@@ -28,4 +28,10 @@ bespoke.from('article', [
 // Prism syntax highlighting
 // This is actually loaded from "bower_components" thanks to
 // debowerify: https://github.com/eugeneware/debowerify
-require('prism');
+require('prism/components/prism-core');
+require('prism/components/prism-markup');
+require('prism/components/prism-css');
+require('prism/components/prism-clike');
+require('prism/components/prism-javascript');
+require('prism/components/prism-java');
+require('prism/components/prism-scala');

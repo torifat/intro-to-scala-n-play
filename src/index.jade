@@ -6,7 +6,7 @@ html
     title Introduction to Scala &amp; Play
 
     link(rel='stylesheet', type='text/css', href='build/build.css')
-
+    base(target='_blank')
   body
     
     article
@@ -16,10 +16,61 @@ html
           div.col.scala.logo
           div.col.play.logo
 
+      section.logo.logo--scala(data-bespoke-state='scala')
+
       section(data-bespoke-state='scala')
-        h1 Hello
+        h2 Why
+        h1.scala Scala
+        h2 is Awesome?
       
-      section
-        h2 world!
+      section(data-bespoke-state='scala')
+        h2 Why Scala?
+        ul.bullet
+          li Fast
+          li Concise
+          li Type Safe
+          li Object Oriented
+          li Functional
+          li Easy Parallelism
+          li Extensible
+          li Built on JVM
+          li Pattern Matching
+
+      section(data-bespoke-state='scala')
+        h2 How Fast?
+        // http://benchmarksgame.alioth.debian.org/u32/which-programs-are-fastest.php
+        h3 C &gt; Java &gt; Scala &gt;&gt; PHP, Ruby, Python
+
+      section(data-bespoke-state='scala')
+        h2 How Concise?
+
+      section(data-bespoke-state='scala')
+        h2 Java
+        pre.language-java
+          code.
+            public class Person {
+              private final String firstName;
+              private final String lastName;
+              public Person(String firstName, String lastName) {
+                this.firstName = firstName;
+                this.lastName = lastName;
+              }
+              public String getFirstName() {
+                return firstName;
+              }
+              public String getLastName() {
+                return lastName;
+              }
+            }
+
+      section(data-bespoke-state='scala')
+        h2.scala Scala
+        pre.language-scala
+          code.
+            case class Person(firstName: String, lastName: String)
+
+      section(data-bespoke-state='scala')
+        h2 Java
+        a(href='https://gist.github.com/torifat/353d45b1058b93a9ec85') https://gist.github.com/torifat/353d45b1058b93a9ec85
 
   script(src='build/build.js')
