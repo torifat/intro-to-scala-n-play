@@ -9,7 +9,8 @@ var bespoke = require('bespoke'),
   scale = require('bespoke-scale'),
   hash = require('bespoke-hash'),
   progress = require('bespoke-progress'),
-  state = require('bespoke-state');
+  state = require('bespoke-state'),
+  ga = require('bespoke-ga');
 
 // Bespoke.js
 bespoke.from('article', [
@@ -22,7 +23,8 @@ bespoke.from('article', [
   scale(),
   hash(),
   progress(),
-  state()
+  state(),
+  ga({trackingId: 'UA-56311291-1'})
 ]);
 
 // Prism syntax highlighting
